@@ -17,8 +17,8 @@ const manifest = {
    display: 'standalone',
    dir: 'auto',
    lang: 'ru-RU',
-   name: 'Inrut.ru',
-   short_name: 'Inrut',
+   name: 'Наше приложение',
+   short_name: 'my app',
    start_url: '/',
 };
 
