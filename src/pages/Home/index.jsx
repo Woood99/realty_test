@@ -49,6 +49,7 @@ const Home = () => {
                <HomeContext.Provider value={{ ...homeData }}>
                   {/* <SuggestionsHome /> */}
                   {/* <BannerSliderMain data={banners.data} /> */}
+                  123
                   <NavBlock />
                   {isDesktop && <ShowcaseVideos />}
                   <Cashback />
