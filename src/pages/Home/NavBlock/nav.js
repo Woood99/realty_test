@@ -2,7 +2,7 @@ import { AuthRoutesPath, RoutesPath } from '../../../constants/RoutesPath';
 
 export const HOME_NAV = [
    {
-      name: 'Новостройки',
+      name: 'Новостройк22222и',
       link: RoutesPath.listing,
       image: 'https://statics.dmclk.ru/confer/static/3610/998908/c946d7f/ec6aeb92321cfd50c2da.png',
    },
