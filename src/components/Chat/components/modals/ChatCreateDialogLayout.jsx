@@ -13,18 +13,22 @@ import { capitalizeWords } from '../../../../helpers/changeString';
 import Select from '../../../../uiForm/Select';
 import Input from '../../../../uiForm/Input';
 import RepeatContent from '../../../RepeatContent';
+import Button from '../../../../uiForm/Button';
+import { IconLocation } from '../../../../ui/Icons';
+import CityModal from '../../../../ModalsMain/CityModal';
 
 const ChatCreateDialogLayout = ({ options, condition, set }) => {
    const currentCity = useSelector(getCurrentCitySelector);
    const citiesData = useSelector(getCitiesValuesSelector);
 
    const [isLoading, setIsLoading] = useState(true);
+   const [popupCityOpen, setPopupCityOpen] = useState(false);
 
    const [filterFields, setFilterFields] = useState({
       city: {},
       search: '',
       page: 1,
-      limit: 11,
+      limit: 40,
    });
 
    const [dataItems, setDataItems] = useState({
@@ -50,25 +54,30 @@ const ChatCreateDialogLayout = ({ options, condition, set }) => {
 
    return (
       <Modal
-         options={{ overlayClassNames: '_left', modalClassNames: 'mmd1:!w-[600px]', modalContentClassNames: 'md1:flex md1:flex-col !px-0' }}
+         options={{ overlayClassNames: '_left', modalClassNames: 'mmd1:!w-[475px]', modalContentClassNames: 'md1:flex md1:flex-col !px-0' }}
          condition={condition}
          set={set}>
-         <div className="grid grid-cols-2 gap-2 px-6">
-            <Select
-               nameLabel="Город"
-               options={citiesData}
-               value={filterFields.city}
-               onChange={value => {
-                  setFilterFields(prev => ({ ...prev, city: value, page: 1 }));
-               }}
-            />
-            <Input
-               placeholder={options.inputPlaceholder}
-               value={filterFields.search}
-               onChange={value => {
-                  setFilterFields(prev => ({ ...prev, search: value, page: 1 }));
-               }}
-            />
+         <div className="flex gap-2 px-6">
+            <Button
+               variant="secondary"
+               size="Small"
+               className="flex items-center gap-2"
+               onClick={() => {
+                  setPopupCityOpen(true);
+               }}>
+               <IconLocation width={16} height={16} />
+               <span>{filterFields.city.label || ''}</span>
+            </Button>
+            <div className="flex-grow">
+               <Input
+               search
+                  placeholder={options.inputPlaceholder}
+                  value={filterFields.search}
+                  onChange={value => {
+                     setFilterFields(prev => ({ ...prev, search: value, page: 1 }));
+                  }}
+               />
+            </div>
          </div>
          <div className="mt-4">
             {!Boolean(!isLoading && dataItems.items?.length === 0) ? (
@@ -113,6 +122,16 @@ const ChatCreateDialogLayout = ({ options, condition, set }) => {
                <EmptyBlock block={false} />
             )}
          </div>
+
+         <CityModal
+            onSubmit={city => {
+               setFilterFields(prev => ({ ...prev, city: { value: city.id, label: city.name }, page: 1 }));
+               setPopupCityOpen(false);
+            }}
+            currentCity={currentCity}
+            condition={popupCityOpen}
+            set={setPopupCityOpen}
+         />
       </Modal>
    );
 };

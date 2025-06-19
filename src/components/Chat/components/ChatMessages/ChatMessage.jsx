@@ -39,6 +39,7 @@ const ChatMessage = ({ data, comments = true }) => {
 
    const audioData = data.files?.filter(item => item.type === 'audio')[0];
    const dataText = data.is_json ? JSON.parse(data.text) : data.text;
+   const isReactions = Boolean(data.reactions.length);
 
    const photosLength = data.photos?.length;
 
@@ -47,7 +48,8 @@ const ChatMessage = ({ data, comments = true }) => {
       myMessage && styles.ChatMessageBlockMe,
       photosLength && styles.ChatMessageBlockPhotos,
       audioData && styles.ChatMessageBlockAudio,
-      videoData && styles.ChatMessageBlockVideo
+      videoData && styles.ChatMessageBlockVideo,
+      isReactions && styles.ChatMessageBlockReactions
    );
 
    if (!dataText && !videoData && !audioData && !photosLength) return;
@@ -75,9 +77,10 @@ const ChatMessage = ({ data, comments = true }) => {
          }}>
          <div
             className={cn(styles.ChatMessage, myMessage && styles.ChatMessageMe, data.loading && styles.ChatMessageLoading)}
-            onClick={() => {
+            onClick={e => {
                if (isDesktop) return;
                if (data.loading) return;
+               if (e.target.closest('.video-player')) return;
 
                setShowPopper(prev => (prev ? false : data.id));
             }}
@@ -89,25 +92,29 @@ const ChatMessage = ({ data, comments = true }) => {
                setShowPopper(prev => (prev ? false : data.id));
             }}>
             <div className={blockClassName}>
-               <div className="overflow-hidden rounded-[12px] relative">
+               <div className={cn(styles.ChatMessageBlockWrapper)}>
                   {data.user_visible && (
                      <span className={styles.ChatMessageUserName} style={{ color: getColorForLetter(data.user.name) }}>
                         {userInfo.id === data.user.id ? 'Вы' : data.user.name}
                      </span>
                   )}
 
-                  {Boolean(photosLength || videoData || data.is_json) && (
-                     <div className="flex flex-col gap-1 p-1.5">
-                        <ChatMessagePhotos />
-                        <ChatMessageVideo />
-                        {/* <ChatMessagePersonalDiscount /> */}
-                     </div>
-                  )}
-                  <ChatMessageAudio />
-                  <ChatMessageText />
+                  <div className="relative">
+                     {Boolean(photosLength || videoData || data.is_json) && (
+                        <div className={cn('flex flex-col gap-1', dataText && 'mb-2')}>
+                           <ChatMessagePhotos />
+                           <ChatMessageVideo />
+                           {/* <ChatMessagePersonalDiscount /> */}
+                        </div>
+                     )}
+                     <ChatMessageAudio />
+                     <ChatMessageText />
 
-                  <ChatMessageTimeAndReads />
-                  <ChatMessageReactionPanel />
+                     <div className={isReactions ? 'mt-1.5 flex items-end justify-between' : 'inline'}>
+                        <ChatMessageReactionPanel />
+                        <ChatMessageTimeAndReads />
+                     </div>
+                  </div>
                </div>
                <ChatMessageTooltip />
                {comments && <ChatMessageCommentsButton />}

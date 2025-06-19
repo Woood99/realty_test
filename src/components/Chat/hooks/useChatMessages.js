@@ -26,6 +26,7 @@ export const useChatMessages = options => {
 
    const addFile = data => {
       const newData = [...filesUpload, ...data];
+
       const photosData = getImagesObj(
          newData.filter(item => {
             return (item.type || item.file.type).startsWith('image');

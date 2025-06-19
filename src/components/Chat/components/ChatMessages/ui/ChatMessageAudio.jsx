@@ -10,9 +10,8 @@ const ChatMessageAudio = () => {
    if (!audioData) return;
 
    return (
-      <div className="voice-player mt-3 mb-6">
+      <div className="voice-player">
          <VoicePlayer
-            className="px-[10px]"
             defaultBlob={audioData.blob}
             audioUrl={audioData.test_url || `${BASE_URL}${audioData.url}`}
             onPlay={handlePlayAudio}

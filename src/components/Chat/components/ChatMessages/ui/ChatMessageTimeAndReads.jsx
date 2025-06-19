@@ -8,15 +8,25 @@ import dayjs from 'dayjs';
 const ChatMessageTimeAndReads = () => {
    const { data, dataText, videoData } = useContext(ChatMessageContext);
 
+   const time = dayjs(data.created_at).format('HH:mm');
+
+   const is_bg = (data.photos?.length || videoData) && !dataText && !data.reactions.length;
+
    return (
-      <div className={cn(styles.ChatMessageTime, (data.photos?.length || videoData) && !dataText && styles.ChatMessageTimeBg)}>
-         {dayjs(data.created_at).format('HH:mm')}
+      <div
+         className={cn(
+            is_bg ? styles.ChatMessageTimeBg : styles.ChatMessageBottomInfo,
+            is_bg && videoData && !dataText && styles.ChatMessageTimeBgVideo
+         )}>
+         <span className={styles.ChatMessageBottomInfoDate}>
+            <span>{time}</span>
+         </span>
          {data.loading ? (
             <div className="flex-center-all" title="Сообщение отправляется">
                <IconClock width={14} height={14} className="fill-graySecond" />
             </div>
          ) : (
-            <IconDoubleTick width={14} height={14} className={cn('translate-y-[2px] fill-graySecond', data.reads?.length && '!fill-blue')} />
+            <IconDoubleTick width={14} height={14} className={cn('fill-graySecond', data.reads?.length && '!fill-blue')} />
          )}
       </div>
    );

@@ -288,14 +288,6 @@
    }
 }
 
-.ChatMessageOther {
-   .ChatMessageBlock {
-      .ChatMessageText {
-         border-radius: 2px 12px 12px 12px;
-      }
-   }
-}
-
 .ChatMessageUser {
    position: sticky;
    bottom: 0;
@@ -305,12 +297,12 @@
 .ChatMessageUserName {
    display: block;
    font-weight: 500;
-   padding: 10px 30px 0 10px;
+   margin-bottom: 8px;
 }
 
 .ChatMessageBlock {
    max-width: 485px;
-   min-width: 150px;
+   min-width: 100px;
    width: max-content;
    border-radius: 12px;
    background-color: var(--white);
@@ -320,7 +312,7 @@
    font-size: var(--default-max);
 
    @media (max-width: $mobile-max) {
-      max-width: 320px;
+      max-width: 275px;
    }
    &.ChatMessageBlockPhotos {
       min-width: 485px;
@@ -329,52 +321,22 @@
          min-width: 90%;
       }
    }
-}
-
-.ChatMessageBlockFilesText {
-   .ChatMessageText {
-      padding: 8px 70px 8px 8px;
+   &.ChatMessageBlockReactions {
+      min-width: 150px;
    }
 }
 
 .ChatMessageText {
    background-color: var(--white);
    color: var(--dark);
-   padding: 10px 75px 10px 10px;
-   // padding: 300px 75px 300px 10px;
-   display: block;
-   &:not(:first-child) {
-      padding-top: 6px;
-   }
 }
 
 .ChatMessageTextLink {
    background-color: var(--white);
    color: var(--blue);
-   padding: 10px 75px 10px 10px;
-   display: block;
    @media (min-width: $desktop-min) {
       &:hover {
          text-decoration: underline;
-      }
-   }
-}
-
-.ChatMessageBlockFiles {
-   width: 100%;
-}
-
-.ChatMessageBlockFiles {
-   &:not(.ChatMessageBlockFilesText) {
-      @media (min-width: $desktop-min) {
-         .ChatMessageTimeBg {
-            opacity: 0;
-         }
-         &:hover {
-            .ChatMessageTimeBg {
-               opacity: 1;
-            }
-         }
       }
    }
 }
@@ -386,41 +348,15 @@
       max-width: 400px;
    }
    @media (max-width: $mobile-max) {
-      max-width: 285px;
+      max-width: 275px;
    }
 }
 
 .ChatMessageBlockVideo {
    background-color: var(--white);
 
-   min-width: 485px;
-   width: 100%;
-   @media (max-width: $mobile-max) {
-      min-width: 90%;
-   }
-}
-
-.ChatMessageTime {
-   position: absolute;
-   bottom: 5px;
-   right: 8px;
-   font-size: 12px;
-   line-height: 1;
-   color: var(--primary400);
-
-   display: flex;
-   align-items: end;
-   gap: 6px;
-}
-
-.ChatMessageTimeBg {
-   background-color: rgba(0, 0, 0, 0.37);
-   z-index: 99;
-   padding: 4px 8px;
-   color: var(--white);
-   border-radius: 8px;
-   bottom: calc(5px + 6px);
-   right: calc(8px + 6px);
+   min-width: min-content;
+   width: auto;
 }
 
 .ChatBottom {
@@ -541,24 +477,6 @@
    50% {
       opacity: 0.1;
    }
-}
-
-.ChatFileDropZoneOverlay {
-   position: absolute;
-   inset: 0;
-   z-index: 99;
-
-   background-color: rgba(0, 0, 0, 0.85);
-
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-
-   color: var(--white);
-   font-size: var(--big-fz);
-   font-weight: 500;
-   line-height: 1;
 }
 
 .ChatMenuBtn {
@@ -690,4 +608,60 @@
    padding-top: 4px;
    padding-bottom: 4px;
    transition: all $transitionSpeed $transitionFunction;
+}
+
+.ChatMessageBlockWrapper {
+   overflow: hidden;
+   border-radius: 12px;
+   position: relative;
+   padding: 10px;
+}
+
+.ChatMessageBottomInfo {
+   display: flex;
+   align-items: center;
+   gap: 6px;
+
+   float: right;
+
+   position: relative;
+   bottom: calc(-1 * (4px + 2px));
+   margin: 4px 0 4px 8px;
+}
+
+.ChatMessageTimeBg {
+   position: absolute;
+   font-size: 12px;
+   line-height: 1;
+
+   display: flex;
+   align-items: end;
+   gap: 6px;
+
+   color: var(--white);
+   background-color: rgba(0, 0, 0, 0.37);
+
+   z-index: 99;
+   padding: 4px 8px;
+   border-radius: 8px;
+   bottom: 8px;
+   right: 8px;
+   pointer-events: none;
+
+   .ChatMessageBottomInfoDate {
+      color: var(--white);
+   }
+}
+
+.ChatMessageTimeBgVideo {
+   bottom: 12px;
+}
+
+.ChatMessageBottomInfoDate {
+   text-align: right;
+   white-space: nowrap;
+
+   font-size: 12px;
+   line-height: 12px;
+   color: var(--primary400);
 }

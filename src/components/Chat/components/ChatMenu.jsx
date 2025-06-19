@@ -12,6 +12,8 @@ import { isBuyer, isSeller } from '../../../helpers/utils';
 import ModalWrapper from '../../../ui/Modal/ModalWrapper';
 import SpecialOfferCreate from '../../../ModalsMain/SpecialOfferCreate';
 import { ROLE_ADMIN } from '../../../constants/roles';
+import Modal from '../../../ui/Modal';
+import { CircleVideoRecorder } from '.';
 
 const ChatMenu = () => {
    const {
@@ -25,6 +27,7 @@ const ChatMenu = () => {
       setIsOpenSmileMenu,
       variantChat,
       setCreateEventModal,
+      sendMessage,
    } = useContext(ChatContext);
    const { getInputProps, uploadFileOpen, addFile } = useContext(ChatMessagesContext);
    const isDesktop = useSelector(getIsDesktop);
@@ -33,6 +36,7 @@ const ChatMenu = () => {
    const userIsBuyer = isBuyer(userInfo);
 
    const [specialOfferModal, setSpecialOfferModal] = useState(false);
+   const [videoNoteModal, setVideoNoteModal] = useState(false);
 
    const photoInputRef = useRef(null);
    const videoInputRef = useRef(null);
@@ -68,7 +72,7 @@ const ChatMenu = () => {
                   <div className={styles.ChatMenuItem}>
                      <input
                         type="file"
-                        accept="image/*"
+                        accept="video/*"
                         capture="environment"
                         onChange={handleFileChange}
                         style={{ display: 'none' }}
@@ -99,9 +103,9 @@ const ChatMenu = () => {
                         />
                         <button
                            type="button"
-                           onClick={e => {
-                              e.preventDefault();
-                              videoInputRef.current.click();
+                           onClick={() => {
+                              setVideoNoteModal(true);
+                              setIsOpenMenu(false);
                            }}
                            className={styles.ChatMenuItemBtn}>
                            <div className={styles.ChatMenuItemIcon}>
@@ -156,7 +160,7 @@ const ChatMenu = () => {
                               </button>
                            ) : (
                               <button type="button" className="flex-center-all">
-                                 <IconClip className='stroke-primary400' />
+                                 <IconClip className="stroke-primary400" />
                               </button>
                            )}
                         </>
@@ -175,7 +179,7 @@ const ChatMenu = () => {
                      setIsOpenMenu(prev => !prev);
                      setIsOpenSmileMenu(false);
                   }}>
-                  <IconClip className='stroke-primary400' />
+                  <IconClip className="stroke-primary400" />
                </button>
             )}
 
@@ -194,6 +198,21 @@ const ChatMenu = () => {
                </ModalWrapper>
             )}
          </div>
+
+         <ModalWrapper condition={videoNoteModal}>
+            <Modal
+               condition={videoNoteModal}
+               set={setVideoNoteModal}
+               closeBtnWhite
+               options={{ overlayClassNames: '_full', modalClassNames: '!bg-[#212121]', modalContentClassNames: '!p-0 flex-center-all' }}>
+               <CircleVideoRecorder
+                  submit={async file => {
+                     setVideoNoteModal(false);
+                     await sendMessage(null, { file, type: 'video' });
+                  }}
+               />
+            </Modal>
+         </ModalWrapper>
       </>
    );
 };

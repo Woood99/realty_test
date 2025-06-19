@@ -28,6 +28,7 @@ const ChatMessageTooltip = () => {
       setForwardMessageId,
       setFilesUpload,
       audioData,
+      videoData,
       messageCommentsOptions,
    } = useContext(ChatMessageContext);
    const { chatReactionCreate, chatReactionDelete, chatReactionCreateFake, chatReactionDeleteFake } = useChatReaction();
@@ -132,15 +133,15 @@ const ChatMessageTooltip = () => {
                   <button
                      className={styles.ChatMessageButton}
                      onClick={() => {
-                        setShowPopper(false);
                         handleCopyText(data.text);
+                        setShowPopper(false);
                      }}>
                      <IconArrow width={15} height={15} />
                      Копировать текст
                   </button>
                )}
 
-               {Boolean(myMessage && !data.is_json && !audioData) && (
+               {Boolean(myMessage && !data.is_json && !audioData && !videoData) && (
                   <button
                      className={styles.ChatMessageButton}
                      onClick={() => {

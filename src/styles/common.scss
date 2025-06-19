@@ -969,6 +969,10 @@
    aspect-ratio: 1;
 }
 
+.aspect-shorts {
+   aspect-ratio: 9/16;
+}
+
 .voicecall-animation {
    position: absolute;
    top: 10px;
@@ -1046,4 +1050,19 @@
 }
 .backface-hidden {
    backface-visibility: hidden;
+}
+
+.vjs-vertical-video {
+   object-fit: contain;
+   width: 400px !important;
+   @media (max-width: $desktop) {
+      width: 220px !important;
+   }
+}
+
+.vjs-horizontal-video {
+   width: 450px !important;
+   @media (max-width:$desktop){
+      width: 260px !important;
+   }
 }

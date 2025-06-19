@@ -215,15 +215,14 @@ export const useChat = (defaultDialogId, videoCallData, tag) => {
       });
    };
 
-   const sendMessage = async (audioBlob = null) => {
+   const sendMessage = async (audioBlob = null, videoBlob = null) => {
       if (!isEdit) {
          const obj = {
             dialog_id: currentDialog.id,
             text: messageText || '',
             photos: filesUpload.filter(item => item.type === 'image'),
-            video: filesUpload.filter(item => item.type === 'video'),
+            video: videoBlob ? [videoBlob] : filesUpload.filter(item => item.type === 'video'),
          };
-
          const formData = new FormData();
 
          formData.append('dialog_id', obj.dialog_id);

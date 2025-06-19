@@ -13,5 +13,6 @@ export { default as ChatMainTextarea } from './ChatMain/ChatMainTextarea';
 export { default as ChatMessageReads } from './ChatMessages/ChatMessageReads';
 export { default as ChatSidebarRight } from './ChatSidebarRight';
 export { default as ChatTooltipDialog } from './ChatTooltipDialog';
+export { default as CircleVideoRecorder } from './CircleVideoRecorder';
 
 export * from './modals';

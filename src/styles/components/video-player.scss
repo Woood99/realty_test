@@ -1,5 +1,4 @@
 @import '../$vars.scss';
-
 .video-player {
    border-radius: 12px;
    position: relative;
@@ -23,8 +22,8 @@
             font-size: 1.1em;
          }
       }
-      @media (max-width:$desktop){
-             top: 33px;
+      @media (max-width: $desktop) {
+         top: 33px;
       }
    }
    .vjs-control-bar {
@@ -50,8 +49,8 @@
       margin: 0 13px;
       background-color: rgba(194, 202, 212, 0.8);
       height: 6px;
-      @media (max-width:$desktop){
-          margin: 0; 
+      @media (max-width: $desktop) {
+         margin: 0;
       }
    }
    .vjs-mouse-display {
@@ -150,9 +149,9 @@
    }
 
    .vjs-control.vjs-button {
-      &.vjs-play-control{
-         @media (max-width:$desktop){
-             display: none; 
+      &.vjs-play-control {
+         @media (max-width: $desktop) {
+            display: none;
          }
       }
       .vjs-icon-placeholder {
@@ -160,7 +159,7 @@
             font-size: 2.2em;
          }
       }
-      &.vjs-fullscreen-control{
+      &.vjs-fullscreen-control {
          margin-left: auto;
       }
    }
@@ -243,8 +242,45 @@
          border: none;
          background-color: transparent;
       }
-      @media (max-width:$desktop){
-          border-radius: 0; 
+      @media (max-width: $desktop) {
+         border-radius: 0;
+      }
+   }
+
+   &.adaptive-video-player {
+      .vjs-control-bar {
+         margin-bottom: 5px;
+      }
+      .vjs-volume-control.vjs-control.vjs-volume-horizontal {
+         display: block;
+      }
+      .vjs-fullscreen-control {
+         display: none;
+      }
+      .vjs-progress-control {
+         top: auto;
+         bottom: -6px;
+         .vjs-progress-holder {
+            margin: 0px;
+         }
+      }
+      .vjs-remaining-time.vjs-time-control.vjs-control {
+         display: block;
+         font-size: 13px;
+         line-height: 13px;
+         padding: 0;
+         min-width: auto;
+         width: auto;
+
+         display: flex;
+         align-items: center;
+         padding: 0 10px;
+      }
+      > .video-js {
+         &::before,
+         &::after {
+            display: none;
+         }
       }
    }
 }

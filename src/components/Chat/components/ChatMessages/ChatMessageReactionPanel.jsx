@@ -44,7 +44,7 @@ const ChatMessageReactionPanel = () => {
    };
 
    return (
-      <div className="ml-2 mb-2 flex flex-wrap gap-2">
+      <div className="inline-flex flex-wrap gap-2">
          {groupedReactions.map((group, index) => {
             const findMe = group.items.find(find => find.user.id === userInfo.id);
 

@@ -74,7 +74,7 @@ const ChatSidebar = () => {
                </div>
             </button>
          </div>
-         <HorizontalScrollMouse widthScreen={9999} className={`mt-3 mb-4 px-2 w-full`}>
+         {/* <HorizontalScrollMouse widthScreen={9999} className={`mt-3 mb-4 px-2 w-full`}>
             <div className="flex items-center gap-2">
                <Button size="26" variant={theme === 'dark' ? 'dark' : 'secondary'}>
                   Все
@@ -89,7 +89,7 @@ const ChatSidebar = () => {
                   Каналы
                </Button>
             </div>
-         </HorizontalScrollMouse>
+         </HorizontalScrollMouse> */}
          <ChatDialogs sidebarMini={sidebarMini} />
 
          {isDesktop && <div className={styles.ChatSidebarResizer} onMouseDown={startResizing} />}
